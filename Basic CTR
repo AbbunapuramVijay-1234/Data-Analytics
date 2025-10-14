@@ -1,0 +1,34 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Dataset Creation
+data = {
+    'Button Name': ['Sign Up Now', 'Learn More', 'Buy Product', 'Download Free Guide', 'Contact Us'],
+    'Impressions': [1500, 2200, 800, 1200, 500],
+    'Clicks': [75, 110, 48, 96, 15]
+}
+df = pd.DataFrame(data)
+
+# 2. CTR Calculation
+df['CTR (%)'] = (df['Clicks'] / df['Impressions']) * 100
+
+# Display the DataFrame with CTR
+print("Button Performance Data:")
+print(df)
+print("\n")
+
+# 3. Visualization
+plt.figure(figsize=(10, 6))
+bars = plt.bar(df['Button Name'], df['CTR (%)'], color=['skyblue', 'lightgreen', 'salmon', 'gold', 'lightcoral'])
+plt.xlabel("Button Name")
+plt.ylabel("Click-Through Rate (%)")
+plt.title("Website Button Click-Through Rate Analysis")
+plt.xticks(rotation=45, ha="right")
+plt.tight_layout() # Adjust layout to prevent labels from overlapping
+
+# Adding CTR values on top of bars
+for bar in bars:
+    yval = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2.0, yval + 0.1, f'{yval:.2f}%', ha='center', va='bottom')
+
+plt.show()
